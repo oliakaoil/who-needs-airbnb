@@ -2,27 +2,21 @@
 
 import express from 'express';
 import { fromExpress } from 'webtask-tools';
-import bodyParser from 'body-parser';
 const FeedParser = require('feedparser');
 const request = require('request');
 const cheerio = require('cheerio');
 const app = express();
-app.use(bodyParser.json());
-
-/*
- * @TODO
- * es6
- * need body parser?
- * querystring postal?
- * abstract location data, google map api key?
- */
 
 app.get('/', (req, res) => {
   
   const clRssUrl = 'http://portland.craigslist.org/search/zip?format=rss&query=couch';
-  var rssReq = request( clRssUrl );
+  const googleMapApiKey = 'AIzaSyDYVHp-jMPdvfqX3fLjnocAoZkkKLwYvdM';
+  const postalCode = '97299';
+  const locationName = 'Portland, OR';
+  
   var rssItems = [];
   var feedparser = new FeedParser();
+  var rssReq = request( clRssUrl );
   
   rssReq.on('response', function(res){
     var stream = this;
@@ -36,7 +30,9 @@ app.get('/', (req, res) => {
   });  
   
   feedparser.on('readable', function(){
+    
     rssItems.push( this.read() );
+    
   }).on('end', () => {
     
     var mapItems = [];
@@ -58,9 +54,9 @@ app.get('/', (req, res) => {
           
           const HTML = renderView({
             title: 'Who needs Airbnb?',
-            googleMapApiKey: 'AIzaSyDYVHp-jMPdvfqX3fLjnocAoZkkKLwYvdM',
-            postalCode: '97299',
-            locationName: 'Portland, OR',
+            googleMapApiKey: googleMapApiKey,
+            postalCode: postalCode,
+            locationName: locationName,
             mapItems: mapItems
           });
         
@@ -151,3 +147,4 @@ function renderView(locals) {
     </html>
   `;
 }
+
