@@ -2,6 +2,7 @@
 
 import express from 'express';
 import { fromExpress } from 'webtask-tools';
+import bodyParser from 'body-parser';
 const FeedParser = require('feedparser');
 const request = require('request');
 const cheerio = require('cheerio');
