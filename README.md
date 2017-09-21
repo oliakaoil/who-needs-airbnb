@@ -4,3 +4,6 @@ This repository contains a Node.js script which is designed to run in the Webtas
 
 The task currently cannot be dynamically configured to accept arbitrary locations, but this is mostly due to the difficulty in mapping postal codes and addresses to available Craig's List markets. Another option would be to allow the user to select from a list of known CL markets. Adding data sources from various other listing sites would obviously also increase usability. Finally, many free couches are not "on the curb", so camping them out would prove challenging. There would have to be significant image and/or content analysis performed on a case-by-case basis to overcome this limitation and only show couches which were readily available.
 
+To view:
+
+https://wt-dee4317587704831da3ab295262380bc-0.run.webtask.io/who-needs-airbnb
